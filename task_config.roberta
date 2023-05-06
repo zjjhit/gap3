@@ -1,0 +1,100 @@
+
+from sklearn.metrics import f1_score
+
+class F1Score:
+    def __init__(self,pos_label) -> None:
+        self.pos_label = pos_label
+    
+    def __call__(self,targets,preds):
+        return f1_score(targets,preds,pos_label=self.pos_label)
+
+task_to_keys = {
+    #"anli_r1": ["premise", "hypothesis", "label"],
+    "sst2" : ["sentence","label"],
+    "yelpp" : ["text","label"],
+    "agnews" : ["text","label"],
+    "dbpedia" : ['label','content'], #["content","label"],
+    "mrpc" : ['sentence1','label','sentence2'],
+    "rte" : ['sentence1','label','sentence2'],
+    "snli" : ['premise','label','hypothesis'],
+}
+
+task_to_labels = {
+    #"anli_r1": ["Yes", "Maybe", "No"],
+    "sst2" : ["bad","good"],
+    "yelpp" : ["bad","good"],
+    "agnews" : ["world","sports","business","technology"],
+    "dbpedia" : [   
+        "company",
+        "education",
+        "artist",
+        "athlete",
+        "office",
+        "transportation",
+        "building",
+        "nature",
+        "village",
+        "animal",
+        "plant",
+        "album",
+        "film",
+        "literature",
+    ],
+    "mrpc" : ["No", "Yes"],
+    "rte" : ["Yes","No"],
+    "snli" : ["Yes","Maybe","No"],
+}
+
+task_to_datafiles = {
+    #"anli_r1" : {'train':'./T0/anli_r1/train.json',
+    #            'validation':'./T0/anli_r1/validation.json',
+    #            'test':'./T0/anli_r1/test.json'},
+    "sst2" : None,
+    "yelpp" : None,
+    "agnews" : None,
+    "dbpedia" : None,
+    "mrpc" : None,
+    "rte" : None,
+    "snli" : None,
+}
+
+task_to_names = {
+    #"anli_r1" : 'json',
+    "sst2" : ['glue','sst2'],
+    "yelpp" : ['yelp_polarity', 'plain_text'],
+    "agnews" : ['./ag_news','default'],
+    "dbpedia" : 'dbpedia_14',
+    "mrpc" : ['glue','mrpc'],
+    "rte" : ['glue','rte'],
+    "snli" : 'snli',
+}
+
+task_to_dataset_tags = {
+    "sst2" : ['train','validation'],
+    "yelpp" : ['train','test'],
+    "agnews" : ['train','test'],
+    "dbpedia" : ['train','test'],
+    "mrpc" : ['train','validation'],
+    "rte" : ['train','validation'],
+    "snli" : ['train','test'],
+}
+
+task_to_metric = {
+    "sst2" : None,
+    "yelpp" : None,
+    "agnews" : None,
+    "dbpedia" : None,
+    "mrpc" : (F1Score, 1),
+    "rte" : None,
+    "snli" : None,
+}
+
+task_to_prompt_templates = {
+    "sst2" : [[],[]],
+    "yelpp" : [[],[]],
+    "agnews" : [None,[]],
+    "dbpedia" : [[],[]], #[None,[]],
+    "mrpc" : [[],None,[]],
+    "rte" : [[],None,[]],
+    "snli" : [[],None,[]],
+}
